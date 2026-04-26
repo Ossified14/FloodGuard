@@ -1,0 +1,17 @@
+# Nonaktifkan directory listing
+Options -Indexes
+
+# Jika pakai Apache 2.4+
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|svg)$">
+    Require all granted
+</FilesMatch>
+
+# Allow akses ke folder uploads (penting untuk CI3)
+RewriteEngine On
+
+# Jangan rewrite file/folder yang benar-benar ada
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Arahkan ke index.php
+RewriteRule ^(.*)$ index.php/$1 [L]
